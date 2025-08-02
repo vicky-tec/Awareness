@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Awareness Quizzes</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f4f4f4 url(Blocks.jpg) no-repeat center center;
+            background-size: cover;
+            color: #333;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 800px;
+            background: #fff;
+            padding: 30px;
+            margin-top: 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1,
+        h2 {
+            color: #007bff;
+        }
+
+        .quiz-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .quiz-list li {
+            background-color: #e9f5ff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .quiz-list li:hover {
+            background-color: #d4ecff;
+        }
+
+        .question {
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        label {
+            display: block;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        #result {
+            font-size: 18px;
+            font-weight: bold;
+            color: green;
+            margin-top: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .footer {
+            background-color: #0f172a;
+            text-align: center;
+            color: #e2e8f0;
+            text-align: center;
+            padding: 20px 20px;
+            margin-top: 30px;
+            position: relative;
+            width: 100%;
+            bottom: 0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .footer-content p {
+            margin: 8px 0;
+            font-size: 16px;
+        }
+
+        .footer .social-icons {
+            margin: 20px 0;
+        }
+
+        .footer .social-icons a {
+            display: inline-block;
+            margin: 0 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .footer .social-icons img {
+            width: 28px;
+            height: 28px;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer .social-icons a:hover {
+            transform: scale(1.2);
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="main-screen">
+        <h1>Digital Awareness Quizzes </h1>
+
+        </h1>
+        <p>Select a quiz to test your knowledge:</p>
+        <ul class="quiz-list">
+            <li onclick="loadQuiz('cyberScam')">🛡️ Cyber Scam Awareness</li>
+            <li onclick="loadQuiz('socialMedia')">📱 Social Media Safety</li>
+            <li onclick="loadQuiz('passwords')">🔐 Password Security</li>
+            <li onclick="loadQuiz('dataPrivacy')">🔒 Data Privacy Basics</li>
+            <li onclick="loadQuiz('ethics')">🧠 AI Ethics and Safety</li>
+            <li onclick="loadQuiz('ai')">🤖 Artificial Intelligence</li>
+        </ul>
+    </div>
+
+    <div class="container hidden" id="quiz-screen">
+        <h2 id="quiz-title"></h2>
+        <form id="quiz-form"></form>
+        <button onclick="submitQuiz()">Submit</button>
+        <div id="result"></div>
+        <button onclick="goHome()">← Back to Quizzes</button>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Created by <strong>❤️ Bomber_Vr</strong></p>
+            <p>Empowering users with knowledge</p>
+            <p>Join us in promoting digital safety and awareness</p>
+            <p>Follow me on social media for updates and tips</p>
+
+            <div class="social-icons">
+                <!-- <a href="https://www.facebook.com" target="_blank" title="Facebook"><img
+                        src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg"
+                        alt="Facebook"></a> -->
+                <a href="https://github.com/vicky-tec" target="_blank" title="GitHub"><img
+                        src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg" alt="Twitter"></a>
+                <a href="https://www.instagram.com/vr_razzz/?__pwa=1" target="_blank" title="Instagram"><img
+                        src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg"
+                        alt="Instagram"></a>
+                <a href="https://www.linkedin.com/in/vicky-raj-090760282/" target="_blank" title="LinkedIn"><img
+                        src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg"
+                        alt="LinkedIn"></a>
+            </div>
+            <p>👐 Open Source Initiative – Contribute on GitHub!</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('main-screen').classList.remove('hidden');
+            document.getElementById('quiz-screen').classList.add('hidden');
+        });
+    </script>
+
+    <script>
+        const quizzes = {
+            cyberScam: {
+                title: "Cyber Scam Awareness Quiz",
+                questions: [
+                    { q: "What is phishing?", options: ["A cooking technique", "Tricking people online", "Mobile payment"], answer: 1 },
+                    { q: "What is a sign of a scam email?", options: ["Correct grammar", "Official domain", "Urgent & misspelled text"], answer: 2 },
+                    { q: "What should you do with suspicious links?", options: ["Click them to see", "Report and delete", "Share with friends"], answer: 1 },
+                    { q: "What is a common tactic used in scams?", options: ["Offering free gifts", "Providing detailed information", "Asking for feedback"], answer: 0 },
+                    { q: "How can you verify a website's legitimacy?", options: ["Check the URL for HTTPS", "Look for flashy ads", "Trust your instincts"], answer: 0 },
+                    { q: "What should you do if you receive a suspicious message?", options: ["Reply immediately", "Ignore or report it", "Share it on social media"], answer: 1 },
+                    { q: "What is a common sign of a fake website?", options: ["Professional design", "Spelling errors and poor grammar", "Contact information"], answer: 1 },
+                    { q: "What is the purpose of two-factor authentication?", options: ["To make logging in harder", "To add an extra security layer", "To share your password"], answer: 1 },
+                    { q: "Should you use the same password for multiple accounts?", options: ["Yes, it's easier", "No, it's risky", "Only for unimportant accounts"], answer: 1 }
+                ]
+            },
+            socialMedia: {
+                title: "Social Media Safety Quiz",
+                questions: [
+                    { q: "Should you share your location publicly?", options: ["Always", "Only with friends", "Avoid unless necessary"], answer: 2 },
+                    { q: "What is the risk of oversharing?", options: ["Increased likes", "Identity theft", "More followers"], answer: 1 },
+                    { q: "What should you do with friend requests from strangers?", options: ["Accept them", "Ignore or block them", "Reply with a message"], answer: 1 },
+                    { q: "How can you protect your privacy on social media?", options: ["Share everything publicly", "Use privacy settings", "Ignore privacy settings"], answer: 1 },
+                    { q: "What is a common sign of a fake profile?", options: ["Real photos", "Few friends and no posts", "Detailed bio"], answer: 1 },
+                    { q: "What should you do if you receive inappropriate messages?", options: ["Reply immediately", "Report and block the sender", "Ignore them"], answer: 1 },
+                    { q: "How can you verify a news story shared on social media?", options: ["Check the source", "Share it anyway", "Assume it's true"], answer: 0 },
+                    { q: "What is the purpose of two-factor authentication?", options: ["To make logging in harder", "To add an extra security layer", "To share your password"], answer: 1 },
+                    { q: "Should you use the same password for multiple accounts?", options: ["Yes, it's easier", "No, it's risky", "Only for unimportant accounts"], answer: 1 }
+                ]
+            },
+            passwords: {
+                title: "Password Security Quiz",
+                questions: [
+                    { q: "What makes a strong password?", options: ["Birthdate", "123456", "Random mix of characters"], answer: 2 },
+                    { q: "How often should you change passwords?", options: ["Once a year", "Every 2–3 months", "Never"], answer: 1 },
+                    { q: "What is two-factor authentication?", options: ["A second password", "An extra security step", "A social media feature"], answer: 1 },
+                    { q: "Should you use the same password for multiple accounts?", options: ["Yes, it's easier", "No, it's risky", "Only for unimportant accounts"], answer: 1 },
+                    { q: "What is a password manager?", options: ["A tool to store passwords securely", "A type of antivirus", "A social media app"], answer: 0 },
+                    { q: "What should you do if you suspect your password has been compromised?", options: ["Ignore it", "Change it immediately", "Share it with friends"], answer: 1 },
+                    { q: "What is a common sign of a weak password?", options: ["It contains special characters", "It's easy to guess", "It's long and complex"], answer: 1 },
+                    { q: "How can you create a memorable but strong password?", options: ["Use a phrase or song lyric", "Use only numbers", "Use your name"], answer: 0 },
+                    { q: "What should you do with old accounts you no longer use?", options: ["Keep them active", "Delete or deactivate them", "Share them with friends"], answer: 1 },
+                    { q: "What is a common mistake when creating passwords?", options: ["Using personal information", "Using random characters", "Changing passwords regularly"], answer: 0 }
+                ]
+            },
+            dataPrivacy: {
+                title: "Data Privacy Basics Quiz",
+                questions: [
+                    { q: "What is personal data?", options: ["Your favorite color", "Your name and contact info", "Random facts"], answer: 1 },
+                    { q: "How can you protect your data online?", options: ["Share everything publicly", "Use privacy settings", "Ignore privacy policies"], answer: 1 },
+                    { q: "What should you do with suspicious links?", options: ["Click them to see", "Report and delete", "Share with friends"], answer: 1 },
+                    { q: "What is two-factor authentication?", options: ["A type of password", "An extra security step", "A social media feature"], answer: 1 },
+                    { q: "Why is it important to read privacy policies?", options: ["To understand data usage", "To find hidden features", "It's not important"], answer: 0 },
+                    { q: "What should you do if your data is compromised?", options: ["Ignore it", "Change passwords and notify services", "Post about it online"], answer: 1 },
+                    { q: "What is a common sign of a data breach?", options: ["Unexpected account activity", "Increased social media followers", "More emails"], answer: 0 },
+                    { q: "How can you verify a website's security?", options: ["Look for HTTPS in the URL", "Check the color scheme", "Read the homepage"], answer: 0 },
+                    { q: "What should you do with old accounts you no longer use?", options: ["Keep them active", "Delete or deactivate them", "Share them with friends"], answer: 1 }
+                ]
+            },
+            ethics: {
+                title: "AI Ethics and Safety Quiz",
+                questions: [
+                    { q: "What is AI?", options: ["Artificial Intelligence", "Automated Internet", "Advanced Internet"], answer: 0 },
+                    { q: "What is a common use of AI?", options: ["Social media posts", "Data analysis", "Cooking recipes"], answer: 1 },
+                    { q: "What is a potential risk of AI?", options: ["Improved efficiency", "Job displacement", "Better decision-making"], answer: 1 },
+                    { q: "How can you ensure AI is used ethically?", options: ["Ignore ethical concerns", "Follow guidelines and regulations", "Use it for fun"], answer: 1 },
+                    { q: "What is bias in AI?", options: ["A type of algorithm", "Unfair treatment based on data", "A programming error"], answer: 1 },
+                    { q: "What should you do if you encounter biased AI results?", options: ["Ignore it", "Report it to developers", "Share it online"], answer: 1 },
+                    { q: "How can you verify the credibility of an AI source?", options: ["Check the author's credentials", "Look for flashy graphics", "Assume it's true"], answer: 0 },
+                    { q: "What is the purpose of AI ethics?", options: ["To make AI more complex", "To ensure responsible use of AI", "To create more jobs"], answer: 1 }
+                ]
+            },
+            ai: {
+                title: "Artificial Intelligence Quiz",
+                questions: [
+                    { q: "What does AI stand for?", options: ["Artificial Intelligence", "Automated Internet", "Advanced Internet"], answer: 0 },
+                    { q: "What is a common use of AI?", options: ["Social media posts", "Data analysis", "Cooking recipes"], answer: 1 },
+                    { q: "What is machine learning?", options: ["A type of AI", "A cooking technique", "A social media trend"], answer: 0 },
+                    { q: "What is a potential risk of AI?", options: ["Improved efficiency", "Job displacement", "Better decision-making"], answer: 1 },
+                    { q: "How can you ensure AI is used ethically?", options: ["Ignore ethical concerns", "Follow guidelines and regulations", "Use it for fun"], answer: 1 },
+                    { q: "What is bias in AI?", options: ["A type of algorithm", "Unfair treatment based on data", "A programming error"], answer: 1 },
+                    { q: "What should you do if you encounter biased AI results?", options: ["Ignore it", "Report it to developers", "Share it online"], answer: 1 },
+                    { q: "How can you verify the credibility of an AI source?", options: ["Check the author's credentials", "Look for flashy graphics", "Assume it's true"], answer: 0 },
+                    { q: "What is the purpose of AI ethics?", options: ["To make AI more complex", "To ensure responsible use of AI", "To create more jobs"], answer: 1 }
+                ]
+            }
+        };
+
+        let currentQuiz = null;
+
+        function loadQuiz(quizKey) {
+            currentQuiz = quizzes[quizKey];
+            if (!currentQuiz) return alert("Quiz not found!");
+
+            document.getElementById('main-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            document.getElementById('quiz-title').innerText = currentQuiz.title;
+
+            const quizForm = document.getElementById('quiz-form');
+            quizForm.innerHTML = '';
+
+            currentQuiz.questions.forEach((q, index) => {
+                const div = document.createElement('div');
+                div.className = 'question';
+                div.innerHTML = `<h3>${index + 1}. ${q.q}</h3>`;
+                q.options.forEach((opt, i) => {
+                    div.innerHTML += `<label><input type="radio" name="q${index}" value="${i}"> ${opt}</label>`;
+                });
+                quizForm.appendChild(div);
+            });
+
+            document.getElementById('result').innerText = '';
+        }
+
+        function submitQuiz() {
+            const form = document.getElementById('quiz-form');
+            let score = 0;
+
+            currentQuiz.questions.forEach((q, index) => {
+                const selected = form.querySelector(`input[name="q${index}"]:checked`);
+                if (selected && parseInt(selected.value) === q.answer) {
+                    score++;
+                }
+            });
+
+            document.getElementById('result').innerText =
+                `You scored ${score} out of ${currentQuiz.questions.length}. ${score >= currentQuiz.questions.length - 1 ? 'Well done!' : 'Keep learning!'}`;
+        }
+
+        function goHome() {
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('main-screen').classList.remove('hidden');
+        }
+    </script>
+</body>
+
+</html>

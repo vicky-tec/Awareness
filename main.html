@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Digital Awareness - Stay Safe Online</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3f37c9;
+      --accent: #4895ef;
+      --light: #f8f9fa;
+      --dark: #212529;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: var(--light);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .hero {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+      animation: pulse 15s infinite alternate;
+      z-index: 0;
+    }
+
+    .content {
+      max-width: 800px;
+      position: relative;
+      z-index: 1;
+      padding: 2.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(to right, #fff, #c2e9fb);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.2;
+    }
+
+    .icon-container {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      font-size: 3rem;
+      animation: bounce 2s infinite;
+    }
+
+    p {
+      font-size: 1.25rem;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 300;
+    }
+
+    .start-btn {
+      padding: 1rem 2.5rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+      background: linear-gradient(45deg, var(--accent), #4cc9f0);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 20px rgba(0, 198, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .start-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, #4cc9f0, var(--accent));
+      z-index: -1;
+      transition: opacity 0.3s ease;
+      opacity: 0;
+    }
+
+    .start-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(0, 198, 255, 0.4);
+    }
+
+    .start-btn:hover::before {
+      opacity: 1;
+    }
+
+    .start-btn:active {
+      transform: translateY(1px);
+    }
+
+    .floating-icons {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .floating-icon {
+      position: absolute;
+      opacity: 0.1;
+      animation: float linear infinite;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      p {
+        font-size: 1.1rem;
+      }
+      
+      .content {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .icon-container {
+        font-size: 2.5rem;
+      }
+      
+      .start-btn {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <!-- Floating background icons -->
+    <div class="floating-icons">
+      <div class="floating-icon" style="left: 10%; animation-duration: 30s; font-size: 2rem;">🔒</div>
+      <div class="floating-icon" style="left: 25%; animation-duration: 40s; font-size: 3rem;">🛡️</div>
+      <div class="floating-icon" style="left: 50%; animation-duration: 50s; font-size: 2.5rem;">⚠️</div>
+      <div class="floating-icon" style="left: 75%; animation-duration: 35s; font-size: 2rem;">🔑</div>
+      <div class="floating-icon" style="left: 90%; animation-duration: 45s; font-size: 3rem;">👁️</div>
+    </div>
+    
+    <div class="content animate__animated animate__fadeInUp">
+      <div class="icon-container">🛡️</div>
+      <h1 class="animate__animated animate__fadeIn">Be Smart, Stay Safe Online</h1>
+      <p class="animate__animated animate__fadeIn animate__delay-1s">
+        Test your knowledge and protect yourself from digital dangers. Our interactive quizzes help you 
+        recognize cyber scams, understand social media safety, and develop better online habits to 
+        safeguard your digital life.
+      </p>
+      <a href="next.html">
+        <button class="start-btn animate__animated animate__fadeIn animate__delay-2s">
+          Start Quiz Now
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Create more floating icons dynamically
+    document.addEventListener('DOMContentLoaded', function() {
+      const floatingIcons = document.querySelector('.floating-icons');
+      const icons = ['🔒', '🛡️', '⚠️', '🔑', '👁️', '📱', '💻', '🔐', '🖥️', '🔍'];
+      
+      for (let i = 0; i < 10; i++) {
+        const icon = document.createElement('div');
+        icon.className = 'floating-icon';
+        icon.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+        icon.style.left = Math.random() * 100 + '%';
+        icon.style.fontSize = (Math.random() * 2 + 1) + 'rem';
+        icon.style.animationDuration = (Math.random() * 30 + 20) + 's';
+        icon.style.animationDelay = (Math.random() * 5) + 's';
+        floatingIcons.appendChild(icon);
+      }
+      
+      // Add hover effect to button
+      const startBtn = document.querySelector('.start-btn');
+      if (startBtn) {
+        startBtn.addEventListener('mouseenter', function() {
+          this.classList.add('animate__pulse');
+        });
+        
+        startBtn.addEventListener('mouseleave', function() {
+          this.classList.remove('animate__pulse');
+        });
+      }
+    });
+  </script>
+</body>
+</html>
