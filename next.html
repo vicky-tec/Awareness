@@ -3,54 +3,94 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Digital Awareness Quizzes</title>
     <style>
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #e9f5ff;
+            --hover-color: #d4ecff;
+            --text-color: #333;
+            --light-text: #e2e8f0;
+            --background-color: #f4f4f4;
+            --card-bg: #fff;
+            --footer-bg: #0f172a;
+            --correct-color: #4CAF50;
+            --wrong-color: #F44336;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background: #f4f4f4 url(Blocks.jpg) no-repeat center center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--background-color) url(Blocks.jpg) no-repeat center center fixed;
             background-size: cover;
-            color: #333;
-            height: 100vh;
+            color: var(--text-color);
+            min-height: 100vh;
             margin: 0;
             padding: 0;
             text-align: center;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
         }
 
         .container {
+            width: 90%;
             max-width: 800px;
-            background: #fff;
-            padding: 30px;
-            margin-top: 40px;
+            background: var(--card-bg);
+            padding: 20px;
+            margin: 20px auto;
             border-radius: 12px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        h1,
+        h1 {
+            color: var(--primary-color);
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 15px;
+        }
+
         h2 {
-            color: #007bff;
+            color: var(--primary-color);
+            font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            margin-bottom: 20px;
+            line-height: 1.5;
         }
 
         .quiz-list {
             list-style: none;
             padding: 0;
+            margin: 0;
         }
 
         .quiz-list li {
-            background-color: #e9f5ff;
+            background-color: var(--secondary-color);
             margin: 10px 0;
             padding: 15px;
             border-radius: 8px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s ease;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .quiz-list li:hover {
-            background-color: #d4ecff;
+        .quiz-list li:hover, .quiz-list li:active {
+            background-color: var(--hover-color);
+            transform: translateY(-2px);
         }
 
         .question {
@@ -58,28 +98,72 @@
             margin: 20px 0;
         }
 
+        .question h3 {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
         label {
-            display: block;
-            margin: 5px 0;
-            cursor: pointer;
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 6px;
+            background-color: #f8f9fa;
+            transition: all 0.2s ease;
+            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+        }
+
+        label:hover {
+            background-color: #e9ecef;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+            min-width: 18px;
+            min-height: 18px;
         }
 
         button {
-            padding: 10px 20px;
-            font-size: 16px;
+            padding: 12px 24px;
+            font-size: clamp(0.9rem, 3vw, 1rem);
             border: none;
             border-radius: 6px;
-            background-color: #007BFF;
+            background-color: var(--primary-color);
             color: white;
             cursor: pointer;
-            margin-top: 20px;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        button:hover, button:active {
+            background-color: #0069d9;
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            transform: none;
         }
 
         #result {
-            font-size: 18px;
+            font-size: clamp(1rem, 3vw, 1.2rem);
             font-weight: bold;
-            color: green;
-            margin-top: 20px;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+
+        .correct {
+            color: var(--correct-color);
+        }
+
+        .wrong {
+            color: var(--wrong-color);
         }
 
         .hidden {
@@ -87,30 +171,35 @@
         }
 
         .footer {
-            background-color: #0f172a;
-            text-align: center;
-            color: #e2e8f0;
-            text-align: center;
-            padding: 20px 20px;
-            margin-top: 30px;
-            position: relative;
+            background-color: var(--footer-bg);
+            color: var(--light-text);
+            padding: 20px;
             width: 100%;
-            bottom: 0;
             font-family: 'Segoe UI', sans-serif;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .footer-content p {
             margin: 8px 0;
-            font-size: 16px;
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+            color: var(--light-text);
         }
 
         .footer .social-icons {
-            margin: 20px 0;
+            margin: 15px 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .footer .social-icons a {
             display: inline-block;
-            margin: 0 10px;
             transition: transform 0.3s ease;
         }
 
@@ -124,14 +213,70 @@
             transform: scale(1.2);
             opacity: 0.8;
         }
+
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            height: 10px;
+            border-radius: 5px;
+            background-color: var(--primary-color);
+            transition: width 0.4s ease;
+        }
+
+        /* Mobile-specific adjustments */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+                width: 95%;
+            }
+            
+            .quiz-list li {
+                padding: 12px;
+            }
+            
+            button {
+                padding: 10px 20px;
+                width: 100%;
+                margin: 5px 0;
+            }
+            
+            .footer .social-icons {
+                gap: 10px;
+            }
+            
+            .footer .social-icons img {
+                width: 24px;
+                height: 24px;
+            }
+        }
+
+        /* Animation for quiz items */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .quiz-list li {
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        .quiz-list li:nth-child(1) { animation-delay: 0.1s; }
+        .quiz-list li:nth-child(2) { animation-delay: 0.2s; }
+        .quiz-list li:nth-child(3) { animation-delay: 0.3s; }
+        .quiz-list li:nth-child(4) { animation-delay: 0.4s; }
+        .quiz-list li:nth-child(5) { animation-delay: 0.5s; }
+        .quiz-list li:nth-child(6) { animation-delay: 0.6s; }
     </style>
 </head>
 
 <body>
     <div class="container" id="main-screen">
-        <h1>Digital Awareness Quizzes </h1>
-
-        </h1>
+        <h1>Digital Awareness Quizzes</h1>
         <p>Select a quiz to test your knowledge:</p>
         <ul class="quiz-list">
             <li onclick="loadQuiz('cyberScam')">🛡️ Cyber Scam Awareness</li>
@@ -145,8 +290,11 @@
 
     <div class="container hidden" id="quiz-screen">
         <h2 id="quiz-title"></h2>
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
         <form id="quiz-form"></form>
-        <button onclick="submitQuiz()">Submit</button>
+        <button id="submit-btn" onclick="submitQuiz()" disabled>Submit</button>
         <div id="result"></div>
         <button onclick="goHome()">← Back to Quizzes</button>
     </div>
@@ -159,11 +307,8 @@
             <p>Follow me on social media for updates and tips</p>
 
             <div class="social-icons">
-                <!-- <a href="https://www.facebook.com" target="_blank" title="Facebook"><img
-                        src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg"
-                        alt="Facebook"></a> -->
                 <a href="https://github.com/vicky-tec" target="_blank" title="GitHub"><img
-                        src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg" alt="Twitter"></a>
+                        src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg" alt="GitHub"></a>
                 <a href="https://www.instagram.com/vr_razzz/?__pwa=1" target="_blank" title="Instagram"><img
                         src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg"
                         alt="Instagram"></a>
@@ -271,14 +416,18 @@
         };
 
         let currentQuiz = null;
+        let userAnswers = [];
 
         function loadQuiz(quizKey) {
             currentQuiz = quizzes[quizKey];
             if (!currentQuiz) return alert("Quiz not found!");
 
+            userAnswers = new Array(currentQuiz.questions.length).fill(null);
+            
             document.getElementById('main-screen').classList.add('hidden');
             document.getElementById('quiz-screen').classList.remove('hidden');
             document.getElementById('quiz-title').innerText = currentQuiz.title;
+            document.getElementById('submit-btn').disabled = true;
 
             const quizForm = document.getElementById('quiz-form');
             quizForm.innerHTML = '';
@@ -288,27 +437,59 @@
                 div.className = 'question';
                 div.innerHTML = `<h3>${index + 1}. ${q.q}</h3>`;
                 q.options.forEach((opt, i) => {
-                    div.innerHTML += `<label><input type="radio" name="q${index}" value="${i}"> ${opt}</label>`;
+                    div.innerHTML += `
+                        <label>
+                            <input type="radio" name="q${index}" value="${i}" 
+                                   onchange="updateAnswer(${index}, ${i})">
+                            ${opt}
+                        </label>`;
                 });
                 quizForm.appendChild(div);
             });
 
             document.getElementById('result').innerText = '';
+            updateProgressBar();
+        }
+
+        function updateAnswer(questionIndex, answerIndex) {
+            userAnswers[questionIndex] = answerIndex;
+            document.getElementById('submit-btn').disabled = userAnswers.includes(null);
+            updateProgressBar();
+        }
+
+        function updateProgressBar() {
+            const answeredCount = userAnswers.filter(a => a !== null).length;
+            const totalQuestions = currentQuiz.questions.length;
+            const progress = (answeredCount / totalQuestions) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
         }
 
         function submitQuiz() {
-            const form = document.getElementById('quiz-form');
             let score = 0;
+            const results = [];
 
             currentQuiz.questions.forEach((q, index) => {
-                const selected = form.querySelector(`input[name="q${index}"]:checked`);
-                if (selected && parseInt(selected.value) === q.answer) {
+                if (userAnswers[index] === q.answer) {
                     score++;
+                    results.push(`<p class="correct">✓ Question ${index + 1}: Correct!</p>`);
+                } else {
+                    results.push(`<p class="wrong">✗ Question ${index + 1}: Incorrect. The correct answer was "${q.options[q.answer]}".</p>`);
                 }
             });
 
-            document.getElementById('result').innerText =
-                `You scored ${score} out of ${currentQuiz.questions.length}. ${score >= currentQuiz.questions.length - 1 ? 'Well done!' : 'Keep learning!'}`;
+            const percentage = Math.round((score / currentQuiz.questions.length) * 100);
+            const feedback = percentage >= 80 ? "Excellent work!" : 
+                           percentage >= 60 ? "Good job!" : 
+                           "Keep learning!";
+            
+            document.getElementById('result').innerHTML = `
+                <h3>You scored ${score} out of ${currentQuiz.questions.length} (${percentage}%)</h3>
+                <p>${feedback}</p>
+                <div class="detailed-results">${results.join('')}</div>
+            `;
+            
+            // Scroll to results
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
         }
 
         function goHome() {
