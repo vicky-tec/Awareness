@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel ="icon" href="https://images.genius.com/d22f9d566834b71de7546eae06cc77b0.1000x1000x1.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <style>
     :root {
       --primary: #4361ee;
@@ -31,6 +33,48 @@
       overflow-x: hidden;
     }
 
+    /* Scrolling ticker styles */
+    .ticker-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 10px 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+
+    .ticker {
+      display: flex;
+      white-space: nowrap;
+      animation: ticker-scroll 60s linear infinite;
+    }
+
+    .ticker-item {
+      display: flex;
+      align-items: center;
+      margin-right: 40px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .ticker-item i {
+      margin-right: 10px;
+      color: var(--accent);
+    }
+
+    @keyframes ticker-scroll {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
     .hero {
       display: flex;
       justify-content: center;
@@ -40,6 +84,7 @@
       padding: 2rem;
       position: relative;
       overflow: hidden;
+      padding-top: 60px; /* Space for ticker */
     }
 
     .hero::before {
@@ -189,6 +234,11 @@
       .content {
         padding: 1.5rem;
       }
+
+      .ticker-item {
+        font-size: 0.8rem;
+        margin-right: 30px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -204,10 +254,39 @@
         padding: 0.8rem 2rem;
         font-size: 1rem;
       }
+
+      .ticker-item {
+        font-size: 0.7rem;
+        margin-right: 20px;
+      }
+
+      .hero {
+        padding-top: 50px;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Scrolling awareness ticker -->
+  <div class="ticker-container">
+    <div class="ticker">
+      <div class="ticker-item"><i class="fas fa-info-circle"></i> Always check the URL before entering personal information</div>
+      <div class="ticker-item"><i class="fas fa-bullhorn"></i>सुरक्षित रहें, सतर्क रहें - ऑनलाइन धोखाधड़ी से बचें! </div>
+      <div class="ticker-item"><i class="fas fa-shield-alt"></i> Use strong, unique passwords for all accounts</div>
+      <div class="ticker-item"><i class="fas fa-bullhorn"></i> मजबूत पासवर्ड है जरूरी, साइबर अपराधों से सावधानी भरी!</div>
+      <div class="ticker-item"><i class="fas fa-lock"></i> Enable two-factor authentication whenever possible</div>
+      <div class="ticker-item"><i class="fas fa-bullhorn"></i>सोशल मीडिया पर सतर्क रहें, प्राइवेसी सेटिंग्स चेक करें </div>
+      <div class="ticker-item"><i class="fas fa-exclamation-triangle"></i> Never share personal information with strangers online</div>
+      <div class="ticker-item"><i class="fas fa-link"></i> Verify links before clicking - hover to see the real URL</div>
+      <div class="ticker-item"><i class="fas fa-wifi"></i> Avoid using public Wi-Fi for sensitive transactions</div>
+      <div class="ticker-item"><i class="fas fa-cloud"></i> Regularly back up your important data</div>
+      <div class="ticker-item"><i class="fas fa-user-secret"></i> Review privacy settings on social media platforms</div>
+      <div class="ticker-item"><i class="fas fa-envelope"></i> Be cautious of unexpected emails asking for information</div>
+      <div class="ticker-item"><i class="fas fa-mobile-alt"></i> Keep your devices and apps updated</div>
+      <div class="ticker-item"><i class="fas fa-question-circle"></i> When in doubt, verify before taking action</div>
+    </div>
+  </div>
+
   <div class="hero">
     <!-- Floating background icons -->
     <div class="floating-icons">
@@ -262,6 +341,15 @@
           this.classList.remove('animate__pulse');
         });
       }
+
+      // Duplicate ticker items for seamless looping
+      const ticker = document.querySelector('.ticker');
+      const tickerItems = document.querySelectorAll('.ticker-item');
+      
+      tickerItems.forEach(item => {
+        const clone = item.cloneNode(true);
+        ticker.appendChild(clone);
+      });
     });
   </script>
 </body>
